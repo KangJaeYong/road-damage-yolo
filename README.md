@@ -4,7 +4,7 @@
 
 본 프로젝트는 도로 이미지 데이터를 활용하여 도로 표면에 존재하는 위험요소를 자동으로 탐지하는 객체탐지 프로젝트이다. 탐지 대상은 포트홀, 균열, 맨홀이며, YOLOv8 계열 모델을 사용하여 각 객체의 위치와 클래스를 동시에 예측한다.
 
-도로 위의 포트홀, 균열, 맨홀 등은 차량 주행 안전과 도로 유지보수 측면에서 중요한 관리 대상이다. 기존의 도로 점검 방식은 사람이 직접 확인하거나 민원 신고에 의존하는 경우가 많아 넓은 도로망을 효율적으로 관리하는 데 한계가 있다. 따라서 본 프로젝트에서는 딥러닝 기반 객체탐지 모델을 활용하여 도로 표면 위험요소를 자동으로 탐지하고, 모델 크기별 성능을 비교하였다.
+도로 위의 포트홀, 균열, 맨홀 등은 차량 주행 안전과 도로 유지보수 측면에서 중요한 관리 대상이다. 기존의 도로 점검 방식은 사람이 직접 확인하거나 민원 신고에 의존하는 경우가 많아 넓은 도로망을 효율적으로 관리하는 데 한계가 있다. 따라서 본 프로젝트에서는 딥러닝 기반 객체탐지 모델을 활용하여 도로 표면 위험요소를 자동으로 탐지하고, YOLOv8 모델 크기에 따른 성능 차이를 비교하였다.
 
 ---
 
@@ -27,6 +27,8 @@
 * **Road Damage Dataset: Potholes, Cracks and Manholes**
 
 해당 데이터셋은 도로 이미지와 함께 객체탐지 학습에 사용할 수 있는 YOLO 형식의 annotation txt 파일을 포함하고 있다.
+
+데이터셋 전체는 용량 문제로 GitHub 저장소에 직접 포함하지 않았으며, Kaggle 원본 데이터셋을 기반으로 학습 환경에서 YOLO 학습 구조로 재구성하였다.
 
 ### 3.2 탐지 클래스
 
@@ -64,7 +66,7 @@ labels/train/example_001.txt
 YOLO 학습을 위해 데이터셋을 다음과 같은 구조로 정리하였다.
 
 ```text
-road-damage-yolo/
+road_damage_yolo/
 ├── images/
 │   ├── train/
 │   ├── val/
@@ -73,12 +75,7 @@ road-damage-yolo/
 │   ├── train/
 │   ├── val/
 │   └── test/
-├── data.yaml
-├── train.py
-├── requirements.txt
-├── split_dataset.py
-├── check_dataset.py
-└── final_results/
+└── data.yaml
 ```
 
 전처리 과정은 다음과 같다.
@@ -139,7 +136,7 @@ Input Image
 | 구성 요소          | 역할                     |
 | -------------- | ---------------------- |
 | Backbone       | 입력 이미지에서 특징 추출         |
-| Neck           | 다양한 크기의 특징을 결합         |
+| Neck           | 다양한 크기의 특징 결합          |
 | Detection Head | bounding box와 class 예측 |
 
 본 프로젝트에서는 YOLOv8 모델을 사용하여 도로 이미지에서 pothole, crack, manhole의 위치와 클래스를 예측하였다.
@@ -178,7 +175,7 @@ Input Image
 
 ## 9. Pretrained Weight 및 Transfer Learning
 
-본 프로젝트에서는 YOLOv8 모델을 처음부터 학습하지 않고, pretrained weight를 사용하였다.
+본 프로젝트에서는 YOLOv8 모델을 처음부터 학습하지 않고 pretrained weight를 사용하였다.
 
 즉, 기존에 대규모 데이터셋으로 사전 학습된 YOLOv8 모델을 기반으로 하여, 도로 손상 데이터셋에 맞게 fine-tuning하는 transfer learning 방식으로 학습을 진행하였다.
 
@@ -276,16 +273,16 @@ YOLO 학습 과정에서 epoch별 loss, precision, recall, mAP 변화는 `result
 
 ---
 
-## 16. Code 구조
+## 16. Repository 구조
 
-본 프로젝트의 주요 코드 구조는 다음과 같다.
+GitHub 저장소의 주요 구조는 다음과 같다.
 
 ```text
 road-damage-yolo/
+├── README.md
 ├── data.yaml
 ├── train.py
 ├── requirements.txt
-├── README.md
 ├── split_dataset.py
 ├── check_dataset.py
 └── final_results/
@@ -301,6 +298,7 @@ road-damage-yolo/
 
 | 파일/폴더              | 설명                                               |
 | ------------------ | ------------------------------------------------ |
+| `README.md`        | 프로젝트 설명 문서                                       |
 | `data.yaml`        | YOLO 학습을 위한 데이터 경로 및 클래스 정보                      |
 | `train.py`         | YOLOv8 모델 학습 코드                                  |
 | `requirements.txt` | 실행에 필요한 Python 패키지 목록                            |
@@ -310,7 +308,7 @@ road-damage-yolo/
 
 ---
 
-## 17. GitHub
+## 17. GitHub 관리
 
 프로젝트 코드는 GitHub 저장소를 통해 관리하였다.
 
