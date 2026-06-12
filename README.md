@@ -78,6 +78,8 @@ road_damage_yolo/
 └── data.yaml
 ```
 
+위 구조는 실제 학습 환경에서 구성한 데이터셋 구조이며, GitHub 저장소에는 데이터셋 용량 문제로 `images/`와 `labels/` 폴더를 포함하지 않았다.
+
 전처리 과정은 다음과 같다.
 
 1. 원본 이미지 파일과 YOLO 형식 txt 라벨 파일 확인
@@ -153,8 +155,8 @@ Input Image
 | Instance Type     | g4dn.xlarge                  |
 | GPU               | NVIDIA Tesla T4              |
 | Framework         | PyTorch / Ultralytics YOLOv8 |
-| Python            | Python 3.x                   |
-| OS                | Ubuntu                       |
+| Python            | Python 3.12.3                |
+| OS                | Ubuntu Linux                 |
 
 ---
 
